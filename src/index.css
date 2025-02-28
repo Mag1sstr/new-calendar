@@ -1,0 +1,27 @@
+:root {
+  --body-background: #e7bfc9;
+  --month-color: #b6828e;
+  --week-day-background: #813e4d;
+}
+@font-face {
+  font-family: "Custom";
+  src: url(/src/fonts/TeXGyreAdventor-Bold.ttf);
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Custom";
+  src: url(/src/fonts/TeXGyreAdventor-Regular.ttf);
+  font-weight: 400;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Custom";
+  font-weight: 400;
+  background-color: var(--body-background);
+}
