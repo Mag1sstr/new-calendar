@@ -1,35 +1,27 @@
+import { useState } from "react";
+import MonthDays from "../MonthDays/MonthDays";
+import WeekDays from "../WeekDays/WeekDays";
 import styles from "./calendar.module.css";
-
-const weekDays = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
+import { monthNames } from "../../constants/constants";
+import Month from "../Month/Month";
 
 export default function Calendar() {
   const currentDate = new Date();
+  const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
+
   let date = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
   return (
     <div className={styles.calendar}>
-      <h1 className={styles.month}>Январь</h1>
+      <Month currentMonth={currentMonth} />
+      {/* <h1 className={styles.month}>{monthNames[currentMonth]}</h1> */}
       <div className={styles.row}>
         <div className={styles.info}></div>
         <div className={styles.wrapper}>
-          <div className={styles.week}>
-            {weekDays.map((day) => (
-              <div className={styles.week__day}>{day}</div>
-            ))}
-          </div>
-          <div className={styles.month__days}>
-            {[...Array(date.getDate())].map((_, i) => {
-              return (
-                <div
-                  key={i}
-                  className={`${styles.days} ${
-                    currentDate.getDate() === i + 1 && styles.current
-                  }`}
-                >
-                  <p className={styles.numeric}>{i + 1}</p>
-                </div>
-              );
-            })}
-          </div>
+          <WeekDays />
+
+          <MonthDays daysCount={date.getDate()} currentDate={currentDate} />
         </div>
       </div>
     </div>

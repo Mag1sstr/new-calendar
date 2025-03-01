@@ -1,0 +1,15 @@
+.month {
+  margin-bottom: auto;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.month {
+  color: var(--month-color);
+  font-size: 104px;
+  line-height: 0.6;
+  font-weight: 700;
+  /* z-index: -100; */
+}

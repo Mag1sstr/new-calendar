@@ -1,0 +1,19 @@
+.month__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+.days {
+  padding: 10px;
+  width: 180px;
+  height: 120px;
+  background-color: #fff;
+  color: #1c1c1c;
+}
+.numeric {
+  font-size: 24px;
+}
+.current {
+  background: var(--month-color);
+  color: #fff;
+}
