@@ -4,12 +4,25 @@
 .row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 40px;
 }
 .month {
+  user-select: none;
   color: var(--month-color);
   font-size: 104px;
   line-height: 0.6;
   font-weight: 700;
   /* z-index: -100; */
+}
+.image {
+  user-select: none;
+  cursor: pointer;
+}
+.image:hover {
+  opacity: 0.9;
+}
+.date {
+  display: flex;
+  gap: 40px;
 }
