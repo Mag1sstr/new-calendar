@@ -16,9 +16,3 @@
 .wrapper {
   max-width: 1320px;
 }
-
-.info {
-  width: 100%;
-  background-color: #fff;
-  box-shadow: 0 0 5px var(--week-day-background);
-}

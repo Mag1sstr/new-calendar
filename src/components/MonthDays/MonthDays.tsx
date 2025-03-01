@@ -1,22 +1,42 @@
+import { monthNames } from "../../constants/constants";
+import { IMonthDays } from "../../interfaces/interfaces";
 import styles from "./MonthDays.module.css";
 
 interface IProps {
-  daysCount: number;
+  daysArray: IMonthDays[];
   currentDate: Date;
+  currentDay: number;
+  setCurrentDay: (day: number) => void;
+  currentMonth: number;
 }
 
-export default function MonthDays({ daysCount, currentDate }: IProps) {
+export default function MonthDays({
+  daysArray,
+  currentDate,
+  setCurrentDay,
+  currentDay,
+  currentMonth,
+}: IProps) {
   return (
     <div className={styles.month__days}>
-      {[...Array(daysCount)].map((_, i) => {
+      {daysArray.map((item, i) => {
         return (
           <div
-            key={i}
+            key={item.day}
+            onClick={() => {
+              setCurrentDay(item.day);
+            }}
             className={`${styles.days} ${
-              currentDate.getDate() === i + 1 && styles.current
+              currentDate.getDate() === item.day &&
+              currentDate.getMonth() === currentMonth &&
+              styles.current
+            } ${
+              currentDay === item.day &&
+              currentDate.getDate() !== item.day &&
+              styles.clicked
             }`}
           >
-            <p className={styles.numeric}>{i + 1}</p>
+            <p className={styles.numeric}>{item.day}</p>
           </div>
         );
       })}

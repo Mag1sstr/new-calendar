@@ -1,0 +1,9 @@
+.info {
+  padding: 20px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 5px var(--week-day-background);
+}
+.title {
+  font-size: 46px;
+}

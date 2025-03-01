@@ -17,3 +17,6 @@
   background: var(--month-color);
   color: #fff;
 }
+.clicked {
+  border: 4px solid var(--month-color);
+}
