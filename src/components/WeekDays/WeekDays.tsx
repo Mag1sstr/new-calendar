@@ -5,7 +5,9 @@ export default function WeekDays() {
   return (
     <div className={styles.week}>
       {weekDays.map((day) => (
-        <div className={styles.week__day}>{day}</div>
+        <div key={day} className={styles.week__day}>
+          {day}
+        </div>
       ))}
     </div>
   );

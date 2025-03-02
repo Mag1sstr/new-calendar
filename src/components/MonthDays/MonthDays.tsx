@@ -8,6 +8,7 @@ interface IProps {
   currentDay: number;
   setCurrentDay: (day: number) => void;
   currentMonth: number;
+  setDaysArray: (arr: IMonthDays[]) => void;
 }
 
 export default function MonthDays({
@@ -16,25 +17,33 @@ export default function MonthDays({
   setCurrentDay,
   currentDay,
   currentMonth,
+  setDaysArray,
 }: IProps) {
+  function dayClick(item: IMonthDays) {
+    setCurrentDay(item.day);
+    const copy = daysArray.map((el) => {
+      if (item.day === el.day) {
+        return {
+          ...el,
+          click: !el.click,
+        };
+      }
+      return el;
+    });
+    setDaysArray(copy);
+  }
   return (
     <div className={styles.month__days}>
-      {daysArray.map((item, i) => {
+      {daysArray.map((item) => {
         return (
           <div
             key={item.day}
-            onClick={() => {
-              setCurrentDay(item.day);
-            }}
+            onClick={() => dayClick(item)}
             className={`${styles.days} ${
               currentDate.getDate() === item.day &&
               currentDate.getMonth() === currentMonth &&
               styles.current
-            } ${
-              currentDay === item.day &&
-              currentDate.getDate() !== item.day &&
-              styles.clicked
-            }`}
+            } ${item.click && styles.clicked}`}
           >
             <p className={styles.numeric}>{item.day}</p>
           </div>
