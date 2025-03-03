@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: center;
   padding: 60px;
   /* padding-top: 0; */
   min-height: 100vh;
@@ -14,5 +15,6 @@
   gap: 60px;
 }
 .wrapper {
-  max-width: 1320px;
+  /* max-width: 1320px; */
+  /* min-height: 710px; */
 }

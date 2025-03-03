@@ -1,5 +1,6 @@
 .month {
   margin-bottom: auto;
+  padding-bottom: 40px;
 }
 .row {
   display: flex;
@@ -11,7 +12,7 @@
   user-select: none;
   color: var(--month-color);
   font-size: 104px;
-  line-height: 0.6;
+  line-height: 0;
   font-weight: 700;
   /* z-index: -100; */
 }

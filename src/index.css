@@ -2,6 +2,7 @@
   --body-background: #e7bfc9;
   --month-color: #b6828e;
   --week-day-background: #813e4d;
+  --button-background: #1560bd;
 }
 @font-face {
   font-family: "Custom";
@@ -24,4 +25,8 @@ body {
   font-family: "Custom";
   font-weight: 400;
   background-color: var(--body-background);
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

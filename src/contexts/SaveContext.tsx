@@ -1,17 +1,17 @@
-import { createContext, useState } from "react";
-import { IMonthDays } from "../interfaces/interfaces";
+import { createContext, useContext, useState } from "react";
+import { ISaved } from "../interfaces/interfaces";
 
 interface IProps {
   children: React.ReactNode;
 }
 interface ISaveContext {
-  saved: IMonthDays[];
-  setSaved: (arr: IMonthDays[]) => void;
+  saved: ISaved[];
+  setSaved: (arr: ISaved[]) => void;
 }
 export const SaveContext = createContext({} as ISaveContext);
 
 export default function SaveContextProvider({ children }: IProps) {
-  const [saved, setSaved] = useState<IMonthDays[]>([]);
+  const [saved, setSaved] = useState([]);
   return (
     <SaveContext.Provider
       value={{
@@ -22,4 +22,8 @@ export default function SaveContextProvider({ children }: IProps) {
       {children}
     </SaveContext.Provider>
   );
+}
+
+export function useSave() {
+  return useContext(SaveContext);
 }
