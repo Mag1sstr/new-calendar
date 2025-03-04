@@ -6,6 +6,7 @@ import Month from "../Month/Month";
 import DayInfo from "../DayInfo/DayInfo";
 import { IMonthDays } from "../../interfaces/interfaces";
 import CreateNote from "../CreateNote/CreateNote";
+import { useSave } from "../../contexts/SaveContext";
 
 export default function Calendar() {
   const currentDate = new Date();
@@ -28,6 +29,15 @@ export default function Calendar() {
       };
     });
     setDaysArray(days);
+  }, [currentMonth]);
+
+  const { saved } = useSave();
+  useEffect(() => {
+    for (const el of saved) {
+      if (el.month === currentMonth && el.year === currentYear) {
+        setDaysArray(el.saved);
+      }
+    }
   }, [currentMonth]);
 
   return (
