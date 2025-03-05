@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { monthNames } from "../../constants/constants";
 import { IMonthDays } from "../../interfaces/interfaces";
 import styles from "./DayInfo.module.css";
@@ -15,6 +16,8 @@ export default function DayInfo({
   setOpenModal,
   daysArray,
 }: IProps) {
+  const [openEdit, setOpenEdit] = useState(false);
+  const [editValue, setEditValue] = useState("");
   function create() {
     setOpenModal(true);
   }
@@ -34,8 +37,26 @@ export default function DayInfo({
               </button>
             </div>
           ) : (
-            <div className={styles.note}>
-              <p>{daysArray[currentDay - 1].title}</p>
+            <div
+              onClick={() => {
+                setOpenEdit(!openEdit);
+                setEditValue(daysArray[currentDay - 1].title);
+              }}
+              className={styles.note}
+            >
+              {openEdit ? (
+                <div className={styles.edit}>
+                  <input
+                    onClick={(e) => e.stopPropagation()}
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    type="text"
+                  />
+                  <button>Save</button>
+                </div>
+              ) : (
+                <p>{daysArray[currentDay - 1].title}</p>
+              )}
             </div>
           )}
         </div>

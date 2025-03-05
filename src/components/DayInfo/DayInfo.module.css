@@ -34,3 +34,22 @@
   border-radius: 10px;
   /* font-weight: 600; */
 }
+
+.edit {
+  display: flex;
+  gap: 10px;
+  & > button {
+    padding: 8px 20px;
+    background: var(--button-background);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+  }
+  & > input {
+    padding: 0 10px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    outline: none;
+  }
+}
