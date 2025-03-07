@@ -62,6 +62,7 @@ export default function Calendar() {
           currentDay={currentDay}
           currentMonth={currentMonth}
           daysArray={daysArray}
+          setDaysArray={setDaysArray}
           setOpenModal={setOpenModal}
         />
         {/* <div className={styles.info}></div> */}

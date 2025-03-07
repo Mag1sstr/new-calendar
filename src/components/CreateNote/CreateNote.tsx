@@ -65,9 +65,10 @@ export default function CreateNote({
 
     setDaysArray(newArr);
     setOpenModal(false);
+    setValue("");
   }
 
-  console.log(saved);
+  // console.log(saved);
 
   return (
     <div

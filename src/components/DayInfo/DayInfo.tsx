@@ -8,6 +8,7 @@ interface IProps {
   currentMonth: number;
   daysArray: IMonthDays[];
   setOpenModal: (b: boolean) => void;
+  setDaysArray: (arr: IMonthDays[]) => void;
 }
 
 export default function DayInfo({
@@ -15,11 +16,17 @@ export default function DayInfo({
   currentMonth,
   setOpenModal,
   daysArray,
+  setDaysArray,
 }: IProps) {
   const [openEdit, setOpenEdit] = useState(false);
   const [editValue, setEditValue] = useState("");
   function create() {
     setOpenModal(true);
+  }
+  function editNote() {
+    const newArr = [...daysArray];
+    newArr[currentDay! - 1].title = editValue;
+    setDaysArray(newArr);
   }
 
   return (
@@ -52,7 +59,7 @@ export default function DayInfo({
                     onChange={(e) => setEditValue(e.target.value)}
                     type="text"
                   />
-                  <button>Save</button>
+                  <button onClick={editNote}>Save</button>
                 </div>
               ) : (
                 <p>{daysArray[currentDay - 1].title}</p>

@@ -2,6 +2,7 @@ import { monthNames } from "../../constants/constants";
 import { IMonthDays } from "../../interfaces/interfaces";
 import styles from "./MonthDays.module.css";
 import noteImage from "../../images/noteIcon.png";
+import { DragEventHandler, useState } from "react";
 
 interface IProps {
   daysArray: IMonthDays[];
@@ -22,6 +23,8 @@ export default function MonthDays({
   setDaysArray,
   currentYear,
 }: IProps) {
+  const [currentItem, setCurrentItem] = useState<IMonthDays | null>(null);
+
   function getStartWeekDay(date: Date) {
     if (date.getDay() === 0) {
       return 6;
@@ -48,6 +51,19 @@ export default function MonthDays({
     });
     setDaysArray(copy);
   }
+  function hansleDragStart(item: IMonthDays) {
+    setCurrentItem(item);
+    console.log(item);
+  }
+  function handleDragOver(event: DragEvent) {
+    (event.currentTarget as HTMLElement).classList.add(styles.drag__over);
+  }
+  function handleDragLeave(event: DragEvent) {
+    (event.currentTarget as HTMLElement).classList.remove(styles.drag__over);
+  }
+  function handleDrop(item: IMonthDays) {
+    console.log(item);
+  }
   return (
     <div className={styles.month__days}>
       {[...Array(getStartWeekDay(new Date(currentYear, currentMonth, 1)))].map(
@@ -60,6 +76,12 @@ export default function MonthDays({
           <div
             key={item.day}
             onClick={() => dayClick(item)}
+            draggable
+            onDragStart={() => hansleDragStart(item)}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            // onDragEnd={}
+            // onDragEnd={() => handleDrop(item)}
             className={`${styles.days} ${
               currentDate.getDate() === item.day &&
               currentDate.getMonth() === currentMonth &&
