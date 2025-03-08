@@ -1,8 +1,8 @@
-import { monthNames } from "../../constants/constants";
-import { IMonthDays } from "../../interfaces/interfaces";
+import { IMonthDays, ISaved } from "../../interfaces/interfaces";
 import styles from "./MonthDays.module.css";
 import noteImage from "../../images/noteIcon.png";
-import { DragEvent, DragEventHandler, useState } from "react";
+import { DragEvent, useState } from "react";
+import { useSave } from "../../contexts/SaveContext";
 
 interface IProps {
   daysArray: IMonthDays[];
@@ -18,12 +18,13 @@ export default function MonthDays({
   daysArray,
   currentDate,
   setCurrentDay,
-  currentDay,
+  // currentDay,
   currentMonth,
   setDaysArray,
   currentYear,
 }: IProps) {
   const [currentItem, setCurrentItem] = useState<IMonthDays | null>(null);
+  const { saved, setSaved } = useSave();
 
   function getStartWeekDay(date: Date) {
     if (date.getDay() === 0) {
@@ -51,8 +52,9 @@ export default function MonthDays({
     });
     setDaysArray(copy);
   }
-  function hansleDragStart(item: IMonthDays) {
+  function hansleDragStart(event: DragEvent, item: IMonthDays) {
     setCurrentItem(item);
+
     console.log(item);
   }
   function handleDragOver(event: DragEvent) {
@@ -63,21 +65,31 @@ export default function MonthDays({
     (event.currentTarget as HTMLElement).classList.remove(styles.drag__over);
   }
   function handleDrop(event: DragEvent, item: IMonthDays) {
+    (event.currentTarget as HTMLElement).classList.remove(styles.drag__over);
     event.preventDefault();
-    const newArr = daysArray.map((el) => {
+    const newArr: IMonthDays[] = daysArray.map((el) => {
       if (el.day === currentItem!.day) {
         return {
           ...item,
+          day: currentItem!.day,
         };
       }
       if (item.day === el.day) {
         return {
           ...currentItem!,
+          day: item.day,
         };
       }
       return el;
     });
     setDaysArray(newArr);
+    const copy = [...saved];
+    copy.push({
+      year: currentYear,
+      month: currentMonth,
+      saved: newArr,
+    });
+    setSaved(copy);
     console.log(item);
   }
   return (
@@ -93,7 +105,7 @@ export default function MonthDays({
             key={item.day}
             onClick={() => dayClick(item)}
             draggable
-            onDragStart={() => hansleDragStart(item)}
+            onDragStart={(event) => hansleDragStart(event, item)}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={(event) => handleDrop(event, item)}
