@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./CreateNote.module.css";
-import { IMonthDays, ISaved } from "../../interfaces/interfaces";
+import { IMonthDays } from "../../interfaces/interfaces";
 import { useSave } from "../../contexts/SaveContext";
 
 interface IProps {

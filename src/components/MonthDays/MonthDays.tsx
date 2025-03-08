@@ -1,4 +1,4 @@
-import { IMonthDays, ISaved } from "../../interfaces/interfaces";
+import { IMonthDays } from "../../interfaces/interfaces";
 import styles from "./MonthDays.module.css";
 import noteImage from "../../images/noteIcon.png";
 import { DragEvent, useState } from "react";
@@ -52,10 +52,10 @@ export default function MonthDays({
     });
     setDaysArray(copy);
   }
-  function hansleDragStart(event: DragEvent, item: IMonthDays) {
+  function hansleDragStart(item: IMonthDays) {
     setCurrentItem(item);
 
-    console.log(item);
+    // console.log(item);
   }
   function handleDragOver(event: DragEvent) {
     event.preventDefault();
@@ -90,7 +90,7 @@ export default function MonthDays({
       saved: newArr,
     });
     setSaved(copy);
-    console.log(item);
+    // console.log(item);
   }
   return (
     <div className={styles.month__days}>
@@ -105,7 +105,7 @@ export default function MonthDays({
             key={item.day}
             onClick={() => dayClick(item)}
             draggable
-            onDragStart={(event) => hansleDragStart(event, item)}
+            onDragStart={() => hansleDragStart(item)}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={(event) => handleDrop(event, item)}

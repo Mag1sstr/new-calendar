@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { monthNames } from "../../constants/constants";
 import backImage from "../../images/arrowLeft.png";
 import nextImage from "../../images/arrowRight.png";
@@ -17,6 +18,7 @@ export default function Month({
   currentYear,
   setCurrentYear,
 }: IProps) {
+  const [timer, setTimer] = useState<number | null>(null);
   function previosMonth() {
     if (currentMonth > 0) {
       setCurrentMonth(currentMonth - 1);
@@ -35,10 +37,38 @@ export default function Month({
   }
   //   console.log(currentMonth);
 
+  function handlePreviosMonth() {
+    setTimeout(() => {
+      setCurrentMonth(currentMonth - 1);
+    }, 1000);
+  }
+  function handleNextMonth() {
+    setTimeout(() => {
+      setCurrentMonth(currentMonth + 1);
+    }, 1000);
+  }
+
+  // document.onkeydown = (e) => {
+  //   if (e.key === "ArrowLeft" && currentMonth > 0) {
+  //     setCurrentMonth(currentMonth - 1);
+  //   } else {
+  //     setCurrentMonth(11);
+  //     setCurrentYear(currentYear - 1);
+  //   }
+
+  //   if (e.key === "ArrowRight" && currentMonth < 11) {
+  //     setCurrentMonth(currentMonth + 1);
+  //   } else {
+  //     setCurrentMonth(0);
+  //     setCurrentYear(currentYear + 1);
+  //   }
+  // };
+
   return (
     <div className={styles.month}>
       <div className={styles.row}>
         <img
+          onDragOver={handlePreviosMonth}
           onClick={previosMonth}
           className={styles.image}
           src={backImage}
@@ -49,6 +79,7 @@ export default function Month({
           <p className={styles.month}>{currentYear}</p>
         </div>
         <img
+          onDragOver={handleNextMonth}
           onClick={nextMonth}
           className={styles.image}
           src={nextImage}

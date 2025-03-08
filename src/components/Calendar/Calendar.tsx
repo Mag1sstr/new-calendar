@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import MonthDays from "../MonthDays/MonthDays";
 import WeekDays from "../WeekDays/WeekDays";
 import styles from "./calendar.module.css";
@@ -7,6 +7,8 @@ import DayInfo from "../DayInfo/DayInfo";
 import { IMonthDays } from "../../interfaces/interfaces";
 import CreateNote from "../CreateNote/CreateNote";
 import { useSave } from "../../contexts/SaveContext";
+import Help from "../Help/Help";
+import HelpModal from "../HelpModal/HelpModal";
 
 export default function Calendar() {
   const currentDate = new Date();
@@ -15,6 +17,7 @@ export default function Calendar() {
   const [daysArray, setDaysArray] = useState<IMonthDays[]>([]);
   const [currentDay, setCurrentDay] = useState<number | null>(null);
   const [openModal, setOpenModal] = useState(false);
+  const [openHelp, setOpenHelp] = useState(false);
 
   const date = new Date(currentYear, currentMonth + 1, 0);
 
@@ -42,6 +45,8 @@ export default function Calendar() {
 
   return (
     <div className={styles.calendar}>
+      <Help setOpenHelp={setOpenHelp} />
+      <HelpModal openHelp={openHelp} setOpenHelp={setOpenHelp} />
       <CreateNote
         openModal={openModal}
         setOpenModal={setOpenModal}

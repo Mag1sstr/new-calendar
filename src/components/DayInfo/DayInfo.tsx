@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { monthNames } from "../../constants/constants";
 import { IMonthDays } from "../../interfaces/interfaces";
+import { monthNames } from "../../constants/constants";
+import sleepImage from "../../images/sleep.png";
 import styles from "./DayInfo.module.css";
+import { useState } from "react";
 
 interface IProps {
   currentDay: number | null;
@@ -38,6 +39,7 @@ export default function DayInfo({
           </h3>
           {!daysArray[currentDay - 1].title ? (
             <div className={styles.no}>
+              <img src={sleepImage} alt="" />
               <p>Нет заметок</p>
               <button onClick={create} className={styles.btn}>
                 Создать
