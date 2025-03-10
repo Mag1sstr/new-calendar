@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { DragEvent, useEffect, useState } from "react";
 import { monthNames } from "../../constants/constants";
 import backImage from "../../images/arrowLeft.png";
 import nextImage from "../../images/arrowRight.png";
@@ -18,7 +18,10 @@ export default function Month({
   currentYear,
   setCurrentYear,
 }: IProps) {
-  const [timer, setTimer] = useState<number | null>(null);
+  const [timerId, setTimerId] = useState<number | null>(null);
+  useEffect(() => {
+    setTimerId(null);
+  }, [currentMonth]);
   function previosMonth() {
     if (currentMonth > 0) {
       setCurrentMonth(currentMonth - 1);
@@ -37,16 +40,33 @@ export default function Month({
   }
   //   console.log(currentMonth);
 
-  function handlePreviosMonth() {
-    setTimeout(() => {
-      setCurrentMonth(currentMonth - 1);
-    }, 1000);
+  function handlePreviosMonth(e: DragEvent) {
+    e.preventDefault();
+    if (!timerId) {
+      setTimerId(
+        setTimeout(() => {
+          setCurrentMonth(currentMonth - 1);
+        }, 1000)
+      );
+    }
   }
-  function handleNextMonth() {
-    setTimeout(() => {
-      setCurrentMonth(currentMonth + 1);
-    }, 1000);
+  function handleNextMonth(e: DragEvent) {
+    e.preventDefault();
+    if (!timerId) {
+      setTimerId(
+        setTimeout(() => {
+          setCurrentMonth(currentMonth + 1);
+        }, 1000)
+      );
+    }
   }
+
+  function clearTimeout() {
+    clearTimeout(timerId!);
+
+    setTimerId(null);
+  }
+  // console.log(timer);
 
   // document.onkeydown = (e) => {
   //   if (e.key === "ArrowLeft" && currentMonth > 0) {
@@ -69,6 +89,8 @@ export default function Month({
       <div className={styles.row}>
         <img
           onDragOver={handlePreviosMonth}
+          onDragLeave={clearTimeout}
+          onDragEnd={clearTimeout}
           onClick={previosMonth}
           className={styles.image}
           src={backImage}
@@ -80,6 +102,8 @@ export default function Month({
         </div>
         <img
           onDragOver={handleNextMonth}
+          onDragLeave={clearTimeout}
+          onDragEnd={clearTimeout}
           onClick={nextMonth}
           className={styles.image}
           src={nextImage}
